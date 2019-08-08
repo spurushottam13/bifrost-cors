@@ -7,7 +7,7 @@ class Bifrost {
         window.addEventListener("message", (e) => {
             if(e.origin === this.address){
                 if(e.data.type === "bifrost-request-data"){
-                    this.rainbowbridge("postback_data")
+                    this.rainbowbridge("postback_data",e.data.value)
                 }
             }
         })
@@ -19,7 +19,7 @@ class Bifrost {
     }
 
     rainbowbridge(event,payload){ // Burning Rainbow Bridge of Bifrost
-        console.log("Burning Rainbow Bridge ")
+        console.log("Burning Rainbow Bridge ",event,payload)
         switch(event){
             case "get_data":
                 this.incoming = new Promise((resolve, reject) => {
@@ -36,8 +36,8 @@ class Bifrost {
 
             case "request_data":
                 let message = {
-                    key :payload,
-                    type: "bifrost-request-data"
+                    type: "bifrost-request-data",
+                    value :payload
                 }
                 this.midgard.contentWindow.postMessage(message, '*')
                 break;
@@ -48,20 +48,18 @@ class Bifrost {
                     let value = []
                     payload.map(key => value.push(localStorage.getItem(key)))
                     let message = {
-                        type: "crossdata-requested-data",
+                        type: "bifrost-requested-data",
                         value : value 
                     }
                     window.parent.postMessage(message,"*")      
                 }else{
                     let message = {
-                        type : "crossdata-requested-data",
-                        value : localStorage.getItem(key)
+                        type : "bifrost-requested-data",
+                        value : localStorage.getItem(payload)
                     }
                     window.parent.postMessage(message,"*")
                 }
-        }
-
-       
+        }       
     }
 }
 

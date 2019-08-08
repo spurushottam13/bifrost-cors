@@ -1,2 +1,4 @@
 client.js
 index.html
+node_modules
+.gitignore
