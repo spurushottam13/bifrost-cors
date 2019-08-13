@@ -9,6 +9,8 @@ class Bifrost {
         this.promiseConstructor = promiseConstructor.bind(this)
         this.postbackLocalstorage = postbackLocalstorage.bind(this)
         this.postbackSetLocalstorage = postbackSetLocalstorage.bind(this)
+        this.postbackGetCookie = postbackGetCookie.bind(this)
+        this.postbackSetCookie = postbackSetCookie.bind(this)
         
         //============================={ - M I D G A R D - }=================================
         this.midgard = document.getElementById("cross-data")
@@ -17,10 +19,7 @@ class Bifrost {
                 if(e.data.type.includes("request")){
                     let requestType = e.data.type.replace("request","postback").replace(/-/g,"_")
                     this.heimdall(requestType,e.data.value)
-                } else {
-                    console.log("Error in line 20 - Request do not include bifrost")
-                }
-                
+                }                 
             }
         })
     }
@@ -41,6 +40,15 @@ class Bifrost {
 
     async getCookie(payload){
         this.heimdall("get_cookie",payload)
+        this.heimdall("get_response")
+        return await this.bifrostResponse
+    }
+
+    async setCookie(name,value,day){
+        let payload = [name,value,day]
+        this.heimdall("set_cookie",payload)
+        this.heimdall("get_response")
+        return await this.bifrostResponse
     }
 
     //=============================={ + H E I M D A L L + }===================================
@@ -61,6 +69,9 @@ class Bifrost {
             case "get_cookie":
                 this.bifrostBridge("request-get-cookie",payload)
             break;
+
+            case "set_cookie":
+                this.bifrostBridge("request-set-cookie",payload)
                 
             case "postback_get_localstorage":
                 this.postbackLocalstorage(payload)
@@ -71,6 +82,13 @@ class Bifrost {
             break;
 
             case "postback_get_cookie":
+                this.postbackGetCookie(payload)
+            break;
+
+            case "postback_set_cookie":
+                this.postbackSetCookie(payload)
+            break
+
         }       
     }
 }
@@ -87,7 +105,6 @@ function bifrostBridge(event,payload,postback = false){
     } else {
         this.midgard.contentWindow.postMessage(message, '*')
     }
-     
 }
 
 function promiseConstructor(promiseType){
@@ -124,5 +141,33 @@ function postbackSetLocalstorage(payload){
     }else{
         this.bifrostBridge("bifrost-response", true,true)
     }
+}
+
+function postbackGetCookie(payload){
+    let cookieString = document.cookie.split(";");
+    let cookies = {};
+    for (var i=0; i<cookieString.length; i++){
+        let cookie = cookieString[i].split("=");
+        cookies[(cookie[0]+'').trim()] = unescape(cookie[1]);
+    }
+    if(payload){
+        let data = cookies[payload]
+        this.bifrostBridge("bifrost-response", data, true)
+    } else {
+        let data = cookies
+        this.bifrostBridge("bifrost-response", data, true)
+    }
+}
+
+function postbackSetCookie(payload){
+    console.log("ss",payload)
+    let name = payload[0], value = payload[1], days = payload[2]
+    let expires = "";
+    if (days) {
+        let date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
 export default Bifrost
