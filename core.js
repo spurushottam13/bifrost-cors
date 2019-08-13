@@ -7,35 +7,40 @@ class Bifrost {
         //==========================={ + Function Binding + }================================
         this.bifrostBridge = bifrostBridge.bind(this)
         this.promiseConstructor = promiseConstructor.bind(this)
-        this.postbackData = postbackData.bind(this)
-        this.postbackSetData = postbackSetData.bind(this)
+        this.postbackLocalstorage = postbackLocalstorage.bind(this)
+        this.postbackSetLocalstorage = postbackSetLocalstorage.bind(this)
         
         //============================={ - M I D G A R D - }=================================
         this.midgard = document.getElementById("cross-data")
-        window.addEventListener("message", (e) => { // Response Listner of Midgard
+        window.addEventListener("message", (e) => { // Bifrost Listner of Midgard
             if(e.origin === this.address){
-                if(e.data.type === "bifrost-request-data"){
-                    this.heimdall("postback_data",e.data.value)
+                if(e.data.type.includes("request")){
+                    let requestType = e.data.type.replace("request","postback").replace(/-/g,"_")
+                    this.heimdall(requestType,e.data.value)
+                } else {
+                    console.log("Error in line 20 - Request do not include bifrost")
                 }
-                if(e.data.type === "bifrost-set-data"){
-                    this.heimdall("postback_set_data",e.data.value)
-                }
+                
             }
         })
     }
 
     //=========================={ + B I F R O S T - M E T H O D S + }=========================
 
-    async getData(key){
-        this.heimdall("request_data",key)
+    async getLocalStorage(key){
+        this.heimdall("get_localstorage",key)
         this.heimdall("get_response")
         return await this.bifrostResponse
     }
 
-    async setData(payload){
-        this.heimdall("set_data",payload)
+    async setLocalStorage(payload){
+        this.heimdall("set_localstorage",payload)
         this.heimdall("get_response")
         return await this.bifrostResponse
+    }
+
+    async getCookie(payload){
+        this.heimdall("get_cookie",payload)
     }
 
     //=============================={ + H E I M D A L L + }===================================
@@ -45,22 +50,27 @@ class Bifrost {
                 this.promiseConstructor("bifrost-response")
             break;
 
-            case "request_data":
-                this.bifrostBridge("bifrost-request-data",payload)
+            case "get_localstorage":
+                this.bifrostBridge("request-get-localstorage",payload)
             break;
 
-            case "set_data":
-                this.bifrostBridge("bifrost-set-data",payload)
+            case "set_localstorage":
+                this.bifrostBridge("request-set-localstorage",payload)
+            break;
+
+            case "get_cookie":
+                this.bifrostBridge("request-get-cookie",payload)
             break;
                 
-            case "postback_data":
-                this.postbackData(payload)
+            case "postback_get_localstorage":
+                this.postbackLocalstorage(payload)
             break;
 
-            case "postback_set_data":
-                this.postbackSetData(payload)
+            case "postback_set_localstorage":
+                this.postbackSetLocalstorage(payload)
             break;
 
+            case "postback_get_cookie":
         }       
     }
 }
@@ -94,7 +104,7 @@ function promiseConstructor(promiseType){
     return this.bifrostResponse
 }
 
-function postbackData(payload){
+function postbackLocalstorage(payload){
     if(typeof(payload) === "object"){
         let data = []
         payload.map(key => {
@@ -107,7 +117,7 @@ function postbackData(payload){
     }
 }
 
-function postbackSetData(payload){
+function postbackSetLocalstorage(payload){
     localStorage.setItem(payload["key"],payload["value"])
     if(localStorage.getItem(payload["key"])){
         this.bifrostBridge("bifrost-response", true,true)
@@ -116,5 +126,3 @@ function postbackSetData(payload){
     }
 }
 export default Bifrost
-
-
