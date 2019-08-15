@@ -1,8 +1,9 @@
-console.log("Bifrost Loaded")
+console.log("Bifrost Loaded -",window.location.href)
 class Bifrost {
     constructor(address){
         this.bifrostResponse        
         this.address =  address
+        this.socketListner
 
         //==========================={ + Function Binding + }================================
         this.bifrostBridge = bifrostBridge.bind(this)
@@ -14,17 +15,26 @@ class Bifrost {
         this.postbackRunEval = postbackRunEval.bind(this)
         this.postbackDomManipulationId = postbackDomManipulationId.bind(this)
         this.postbackDomManipulationClass = postbackDomManipulationClass.bind(this)
-
-        //============================={ - M I D G A R D - }=================================
+        this.startMessageThread = startMessageThread.bind(this)    
+        this.handleSocketSendMessage = handleSocketSendMessage.bind(this)      
         this.midgard = document.getElementById("cross-data")
-        window.addEventListener("message", (e) => { // Bifrost Listner of Midgard
+
+
+        //======================={ + B I F R O S T - L I S T N E R + }=========================
+
+
+        window.addEventListener("message", (e) => { 
             if(e.origin === this.address){
                 if(e.data.type.includes("request")){
                     let requestType = e.data.type.replace("request","postback").replace(/-/g,"_")
                     this.heimdall(requestType,e.data.value)
-                }                 
+                } 
+                if(e.data.type === "bifrost-socket-message"){
+                    this.socketListner(e.data.value)
+                }      
             }
         })
+    
     }
 
     //=========================={ + B I F R O S T - M E T H O D S + }=========================
@@ -68,6 +78,14 @@ class Bifrost {
     async domManipulationByClass(Class, index, styleObj){
         let payload = [Class,index,styleObj]
         this.heimdall("dom_manipulation_class",payload)
+    }
+
+    async startMessageThread(payload){
+        this.heimdall("start_message_thread",payload)
+    }
+
+    async send(payload){
+        this.heimdall("bifrost_socket_send_message",payload)
     }
 
     //=============================={ + H E I M D A L L + }===================================
@@ -133,6 +151,14 @@ class Bifrost {
                 this.postbackDomManipulationClass(payload)
             break;
 
+            case "start_message_thread":
+                this.startMessageThread(payload)
+            break;
+
+            case "bifrost_socket_send_message":
+                this.handleSocketSendMessage(payload)
+            break;
+
         }       
     }
 }
@@ -147,7 +173,7 @@ function bifrostBridge(event,payload,postback = false){
     if(postback){
         window.parent.postMessage(message,"*")
     } else {
-        this.midgard.contentWindow.postMessage(message, '*')
+        this.midgard && this.midgard.contentWindow.postMessage(message, '*')
     }
 }
 
@@ -235,5 +261,13 @@ function postbackDomManipulationClass(payload){
     Object.keys(styleObj).map(item  =>{
         host[item] = styleObj[item]
     })
+}
+
+function startMessageThread(payload){
+    this.socketListner = payload
+}
+
+function handleSocketSendMessage(payload){
+    this.bifrostBridge("bifrost-socket-message",payload,Boolean(!this.midgard))
 }
 export default Bifrost
