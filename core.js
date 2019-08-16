@@ -10,13 +10,14 @@ class Bifrost {
         this.promiseConstructor = promiseConstructor.bind(this)
         this.postbackLocalstorage = postbackLocalstorage.bind(this)
         this.postbackSetLocalstorage = postbackSetLocalstorage.bind(this)
+        this.postbackDeleteLocalstorage = postbackDeleteLocalstorage.bind(this)
         this.postbackGetCookie = postbackGetCookie.bind(this)
         this.postbackSetCookie = postbackSetCookie.bind(this)
         this.postbackRunEval = postbackRunEval.bind(this)
         this.postbackDomManipulationId = postbackDomManipulationId.bind(this)
         this.postbackDomManipulationClass = postbackDomManipulationClass.bind(this)
         this.startMessageThread = startMessageThread.bind(this)    
-        this.handleSocketSendMessage = handleSocketSendMessage.bind(this)      
+        this.handleSocketMessage = handleSocketMessage.bind(this)      
         this.midgard = document.getElementById("cross-data")
 
 
@@ -30,7 +31,16 @@ class Bifrost {
                     this.heimdall(requestType,e.data.value)
                 } 
                 if(e.data.type === "bifrost-socket-message"){
-                    this.socketListner(e.data.value)
+                    if(this.socketListner){
+                        this.bifrostBridge("bifrost-response",true,true)
+                        this.socketListner(e.data.value)
+                    } else{
+                        console.group("Error - Bifrost-CROS")
+                        console.error("Message Thread not init -- Bifrost-CROS")
+                        console.log("You.developer ? dig into lib at line 37 : Raise a issue")
+                        console.groupEnd()
+                    }
+                    
                 }      
             }
         })
@@ -47,6 +57,12 @@ class Bifrost {
 
     async setLocalStorage(payload){
         this.heimdall("set_localstorage",payload)
+        this.heimdall("get_response")
+        return await this.bifrostResponse
+    }
+
+    async deleteLocalStorage(payload){
+        this.heimdall("delete_localstorage",payload)
         this.heimdall("get_response")
         return await this.bifrostResponse
     }
@@ -73,19 +89,27 @@ class Bifrost {
     async domManipulationById(Id,styleObj){
         let payload = [Id,styleObj]
         this.heimdall("dom_manipulation_id",payload)
+        this.heimdall("get_response")
+        return await this.bifrostResponse
     }
 
     async domManipulationByClass(Class, index, styleObj){
         let payload = [Class,index,styleObj]
         this.heimdall("dom_manipulation_class",payload)
+        this.heimdall("get_response")
+        return await this.bifrostResponse
     }
 
-    async startMessageThread(payload){
+    async requestMessageThread(payload){
         this.heimdall("start_message_thread",payload)
+        if(this.socketListner) return true
+        return false
     }
 
     async send(payload){
         this.heimdall("bifrost_socket_send_message",payload)
+        this.heimdall("get_response")
+        return await this.bifrostResponse
     }
 
     //=============================={ + H E I M D A L L + }===================================
@@ -101,6 +125,10 @@ class Bifrost {
 
             case "set_localstorage":
                 this.bifrostBridge("request-set-localstorage",payload)
+            break;
+
+            case "delete_localstorage":
+                this.bifrostBridge("request-delete-localstorage",payload)
             break;
 
             case "get_cookie":
@@ -131,6 +159,10 @@ class Bifrost {
                 this.postbackSetLocalstorage(payload)
             break;
 
+            case "postback_delete_localstorage":
+                this.postbackDeleteLocalstorage(payload)
+            break;
+
             case "postback_get_cookie":
                 this.postbackGetCookie(payload)
             break;
@@ -156,7 +188,7 @@ class Bifrost {
             break;
 
             case "bifrost_socket_send_message":
-                this.handleSocketSendMessage(payload)
+                this.handleSocketMessage(payload)
             break;
 
         }       
@@ -212,6 +244,18 @@ function postbackSetLocalstorage(payload){
     }
 }
 
+function postbackDeleteLocalstorage(payload){
+    if(typeof(payload) === "object"){
+        payload.map(key => {
+            localStorage.removeItem(key)
+        })
+        this.bifrostBridge("bifrost-response",true,true)
+    } else {
+        localStorage.removeItem(payload)
+        this.bifrostBridge("bifrost-response",true,true)
+    }
+}
+
 function postbackGetCookie(payload){
     let cookieString = document.cookie.split(";");
     let cookies = {};
@@ -251,6 +295,7 @@ function postbackDomManipulationId(payload){
     Object.keys(styleObj).map(item  =>{
         host[item] = styleObj[item]
     })
+    this.bifrostBridge("bifrost-response",true,true)
 }
 
 function postbackDomManipulationClass(payload){
@@ -261,13 +306,17 @@ function postbackDomManipulationClass(payload){
     Object.keys(styleObj).map(item  =>{
         host[item] = styleObj[item]
     })
+    this.bifrostBridge("bifrost-response",true,true)
 }
 
 function startMessageThread(payload){
+    console.log(payload)
     this.socketListner = payload
 }
 
-function handleSocketSendMessage(payload){
+function handleSocketMessage(payload){
     this.bifrostBridge("bifrost-socket-message",payload,Boolean(!this.midgard))
 }
+
+
 export default Bifrost
