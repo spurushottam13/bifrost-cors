@@ -1,4 +1,7 @@
-# Bifrost-CROS
+<center>
+![alt text](logo.jpg)
+</center>
+# Bifrost-CROSS
 ###### A cross-domain communication solution to share data and many more  functionalities with simple as just calling a method.
 #### Functionalities can be performed on CROS Domain
  -------------
@@ -14,19 +17,19 @@ All above methods are wrapped in a promise.
 
 
 ----
-##### Initialize Bifrost-CROS
+##### Initialize Bifrost-CROSS
 ```javascript
-var bifrostCross = new Bifrost(address, iframeBoolean)	
+var bifrostCross = new BifrostCross(address, iframeBoolean)	
 ```
 | Parameter        | Required           | Value  |
 | :------------- |:---------------------|:-----|
 | address      | YES | Exact Address of the other domain|
-| iframeBoolean| YES      |   <b>true</b> :- If you already rendering the other domain in iframe </br> <b>false</b> If you are not rendering the other domain in iframe |
+| iframeBoolean| YES      |   <b>true</b> :- If you already rendering the other domain in iframe <br> <b>false</b> If you are not rendering the other domain in iframe |
 
 ---
 ##### Implementation of methods and how to handle promise
 ```javascript
-var bifrostCross = new Bifrost("http://example.com/",false)
+var bifrostCross = new BifrostCross("http://example.com/",false)
 
 //Calling Methods without promise
 var result = bifrostCross.getLocalStorage(key)
@@ -34,8 +37,7 @@ var result = bifrostCross.getLocalStorage(key)
 //Hanlde Promise
 
 //1. Using .then()
-var result = bifrostCross.getLocalStorage(key)
-result.then((data) => {
+bifrostCross.getLocalStorage(key).then((data) => {
 	console.log(data)
  })
 
@@ -50,15 +52,15 @@ async function grabLocalStorage(){
 	* __Get Cookies__
 	```javascript
     // return type Object, return all cookies
-    bifrost.getCookie() 
+    bifrostCross.getCookie() 
     
    // return type string
-   	bifrost.getCookie("key")
+   	bifrostCross.getCookie("key")
     ```
     
     * __Set Cookies__
 	```javascript
-   	bifrost.setCookie(name,value,days)   
+   	bifrostCross.setCookie(name,value,days)   
      ```
      * Parameter 
      	* name __String__,  name for cookie
@@ -71,35 +73,35 @@ async function grabLocalStorage(){
 	* __Get local Storage__
 	```javascript
     // return type stirng
-    bifrost.getgetLocalStorage("key") 
+    bifrostCross.getgetLocalStorage("key") 
     
     // return type array
-   	bifrost.getLocalStorage(["key1","key2"])
+   	bifrostCross.getLocalStorage(["key1","key2"])
     ```
     
     * __Set local Storage__
 	```javascript
     // return type Boolean
-    bifrost.setLocalStorage("key") 
+    bifrostCross.setLocalStorage("key") 
     
     // return type Boolean
-   	bifrost.setLocalStorage(["key1","key2"])
+   	bifrostCross.setLocalStorage(["key1","key2"])
     ```
     
     * __Delete local Storage__
 	```javascript
     // return type Boolean
-    bifrost.deleteLocalStorage("key") 
+    bifrostCross.deleteLocalStorage("key") 
     
     // return type Boolean
-   	bifrost.deleteLocalStorage(["key1","key2"])
+   	bifrostCross.deleteLocalStorage(["key1","key2"])
     ```
 
 * #### Bi-directional message thread
 	* __Request Message Thread__
 	```javascript
     // return type Boolean, parameter type funtion
-    bifrost.requestMessageThread(Listner)
+    bifrostCross.requestMessageThread(Listner)
     ```
    Listner is your custom function which will be invoked every time new message recivied, and it should expect a new message as a parameter
     
@@ -110,30 +112,30 @@ async function grabLocalStorage(){
    	cosnole.log("Hurray I got new message ",newMessage)
     }
     
-    bifrost.requestMessageThread(myCustomListner)
+    bifrostCross.requestMessageThread(myCustomListner)
    ```
    
     * __Send Message__
 	```javascript
     // return type Boolean, parameter type string|int|array|object
-    bifrost.send(message)
+    bifrostCross.send(message)
      ```
      
 * #### Run JS expression from one domain to other
 	```javascript
     // return type Boolean, parameter type string
-    bifrost.runExpression(expression)
+    bifrostCross.runExpression(expression)
      ```
 * #### DOM Manipulation
 	* __DOM Manipulation by ID__
 	```javascript
     // return type Boolean, parameter type string
-    bifrost.domManipulationById("yourElementID")
+    bifrostCross.domManipulationById("yourElementID")
      ```
     * __DOM Manipulation by class name__
 	```javascript
     // return type Boolean, parameter type string,int,Objet
-    bifrost.domManipulationById(class,index,style)
+    bifrostCross.domManipulationById(class,index,style)
      ```
   	* Parameter 
      	* class __String__  your element class name
@@ -147,3 +149,4 @@ async function grabLocalStorage(){
     	* class "myElementClass"
     	* index 4
     	* style {background:"red"}
+ 
