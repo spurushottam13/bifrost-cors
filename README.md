@@ -2,6 +2,13 @@
 
 # Bifrost-CORS
 ###### A cross-domain communication solution to share data and many more  functionalities with simple as just calling a method.
+
+#### Get Started
+ ##### NPM Install
+> __npm install bifrost-cors__
+##### CDN Link
+>__https://cdn.jsdelivr.net/gh/spurushottam13/bifrost-cors/index.min.js__
+
 #### Functionalities can be performed on CROS Domain
  -------------
  
@@ -24,9 +31,7 @@ var bifrostCors = new bifrostCors(address, iframeBoolean,iframeId)
 | :------------- |:---------------------|:-----|
 | address      | YES | Exact Address of the other domain|
 | iframeBoolean| No     |  <b>true</b> :- If you already rendering the other domain in iframe <br> <b>false</b> If you are not rendering the other domain in iframe <br> Default <b>false</b> |
-<<<<<<< HEAD
 | iframeId| No     |  if __iframeBoolean__ is set to __true__ then you need to pass the ID for your Iframe in which you loading the other domain |
-=======
 
 ---
 ##### Implementation of methods and how to handle promise
@@ -62,7 +67,7 @@ async function grabLocalStorage(){
     
     * __Set Cookies__
 	```javascript
-   	bifrostCors.setCookie(name,value,days)   
+    bifrostCors.setCookie(name,value,days)   
      ```
      * Parameter 
      	* name __String__,  name for cookie
@@ -78,7 +83,7 @@ async function grabLocalStorage(){
     bifrostCors.getgetLocalStorage("key") 
     
     // return type array
-   	bifrostCors.getLocalStorage(["key1","key2"])
+    bifrostCors.getLocalStorage(["key1","key2"])
     ```
     
     * __Set local Storage__
@@ -87,7 +92,7 @@ async function grabLocalStorage(){
     bifrostCors.setLocalStorage("key") 
     
     // return type Boolean
-   	bifrostCors.setLocalStorage(["key1","key2"])
+    bifrostCors.setLocalStorage(["key1","key2"])
     ```
     
     * __Delete local Storage__
@@ -96,7 +101,7 @@ async function grabLocalStorage(){
     bifrostCors.deleteLocalStorage("key") 
     
     // return type Boolean
-   	bifrostCors.deleteLocalStorage(["key1","key2"])
+    bifrostCors.deleteLocalStorage(["key1","key2"])
     ```
 
 * #### Bi-directional message thread
