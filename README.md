@@ -23,7 +23,7 @@ var bifrostCors = new bifrostCors(address, iframeBoolean)
 | Parameter        | Required           | Value  |
 | :------------- |:---------------------|:-----|
 | address      | YES | Exact Address of the other domain|
-| iframeBoolean| YES      |   <b>true</b> :- If you already rendering the other domain in iframe <br> <b>false</b> If you are not rendering the other domain in iframe |
+| iframeBoolean| No     |  <b>true</b> :- If you already rendering the other domain in iframe <br> <b>false</b> If you are not rendering the other domain in iframe <br> Default <b>false</b> |
 
 ---
 ##### Implementation of methods and how to handle promise
