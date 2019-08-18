@@ -45,8 +45,8 @@ async function grabLocalStorage(){
 }
 ```
 ---
-##### Functionalities
-* ##### Cookies
+#### Functionalities
+* #### Cookies
 	* __Get Cookies__
 	```javascript
     // return type Object, return all cookies
@@ -67,7 +67,7 @@ async function grabLocalStorage(){
         
      * return type __Boolean__
      
-* ##### LocalStorage	
+* #### LocalStorage	
 	* __Get local Storage__
 	```javascript
     // return type stirng
@@ -95,7 +95,7 @@ async function grabLocalStorage(){
    	bifrost.deleteLocalStorage(["key1","key2"])
     ```
 
-* ##### Bi-directional message thread
+* #### Bi-directional message thread
 	* __Request Message Thread__
 	```javascript
     // return type Boolean, parameter type funtion
@@ -119,12 +119,12 @@ async function grabLocalStorage(){
     bifrost.send(message)
      ```
      
-* ##### Run JS expression from one domain to other
+* #### Run JS expression from one domain to other
 	```javascript
     // return type Boolean, parameter type string
     bifrost.runExpression(expression)
      ```
-* ##### DOM Manipulation
+* #### DOM Manipulation
 	* __DOM Manipulation by ID__
 	```javascript
     // return type Boolean, parameter type string
@@ -140,7 +140,7 @@ async function grabLocalStorage(){
         * index __int__ index no of that element in class array
         * style __Object__ Style object
         
-    * example:
+    * Example:a
     if you can access element by 
     document.getElementsByClassName("myElementClass)[4]<br/>
     so parameter will be <br/>
