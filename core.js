@@ -1,6 +1,6 @@
 console.log("Bifrost Loaded -",window.location.href)
-class Bifrost {
-    constructor(address){
+class BifrostCors {
+    constructor(address,iframeBoolean = false,iframeID){
         this.bifrostResponse        
         this.address =  address
         this.socketListner
@@ -17,8 +17,22 @@ class Bifrost {
         this.postbackDomManipulationId = postbackDomManipulationId.bind(this)
         this.postbackDomManipulationClass = postbackDomManipulationClass.bind(this)
         this.startMessageThread = startMessageThread.bind(this)    
-        this.handleSocketMessage = handleSocketMessage.bind(this)      
-        this.midgard = document.getElementById("cross-data")
+        this.handleSocketMessage = handleSocketMessage.bind(this)    
+        
+        if(iframeBoolean){
+            this.midgard = document.getElementById(iframeID)
+        }
+        if(iframeBoolean === false){
+            var ifrm
+            ifrm = document.createElement('iframe');
+            ifrm.setAttribute('id', 'bifrost-cors'); 
+            ifrm.setAttribute('width',"0px");
+            ifrm.setAttribute('height',"0px");
+            ifrm.setAttribute('style',"position:absolute; top: -999px; display: none")
+            ifrm.setAttribute('src', this.address)
+            document.body.appendChild(ifrm)
+            this.midgard = document.getElementById("bifrost-cors")
+        }
 
 
         //======================={ + B I F R O S T - L I S T N E R + }=========================
@@ -35,8 +49,8 @@ class Bifrost {
                         this.bifrostBridge("bifrost-response",true,true)
                         this.socketListner(e.data.value)
                     } else{
-                        console.group("Error - Bifrost-CROS")
-                        console.error("Message Thread not init -- Bifrost-CROS")
+                        console.group("Error - Bifrost-Cors")
+                        console.error("Message Thread not init -- Bifrost-Cors")
                         console.log("You.developer ? dig into lib at line 37 : Raise a issue")
                         console.groupEnd()
                     }
@@ -80,7 +94,7 @@ class Bifrost {
         return await this.bifrostResponse
     }
 
-    async runEval(payload){
+    async runExpression(payload){
         this.heimdall("run_eval",payload)
         this.heimdall("get_response")
         return await this.bifrostResponse
@@ -281,6 +295,7 @@ function postbackSetCookie(payload){
         expires = "; expires=" + date.toUTCString();
     }
     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+    this.bifrostBridge("bifrost-response",true,true)
 }
 
 function postbackRunEval(payload){
@@ -310,8 +325,8 @@ function postbackDomManipulationClass(payload){
 }
 
 function startMessageThread(payload){
-    console.log(payload)
     this.socketListner = payload
+    this.bifrostBridge("bifrost-response",true,true)
 }
 
 function handleSocketMessage(payload){
@@ -319,4 +334,4 @@ function handleSocketMessage(payload){
 }
 
 
-export default Bifrost
+export default BifrostCors
