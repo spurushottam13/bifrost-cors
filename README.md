@@ -1,6 +1,4 @@
-<center>
 ![alt text](logo.jpg)
-</center>
 # Bifrost-CROSS
 ###### A cross-domain communication solution to share data and many more  functionalities with simple as just calling a method.
 #### Functionalities can be performed on CROS Domain
