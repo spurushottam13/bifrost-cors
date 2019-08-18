@@ -1,6 +1,4 @@
-<p align="center">
-  <img src="logo.jpg" width="150px" height="150px"/>
-</p>
+<img src="logo.jpg" width="100px" height="100px"  align="left"/>
 
 # Bifrost-CROSS
 ###### A cross-domain communication solution to share data and many more  functionalities with simple as just calling a method.
