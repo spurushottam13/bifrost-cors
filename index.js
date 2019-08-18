@@ -19,6 +19,7 @@ class BifrostCors {
         this.startMessageThread = startMessageThread.bind(this)    
         this.handleSocketMessage = handleSocketMessage.bind(this)    
         
+        //==========================={ + M I D G A R D + }================================        
         if(iframeBoolean){
             this.midgard = document.getElementById(iframeID)
         }
