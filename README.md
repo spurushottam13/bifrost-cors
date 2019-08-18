@@ -10,7 +10,7 @@
 - ###### [Get, Set Cookie](#cookies)
 - ###### [Get, Set & Delete  Local Stroage](#localStorage) 
 - ###### [Bi-directional message thread](#bi-directional-message-thread)
-- ###### [Run JS expression from one domain to other](#run-jS-expression-from-one-domain-to-other)
+- ###### [Run JS expression from one domain to other](#run-js-expression-from-one-domain-to-other)
 - ###### [DOM Manipulation from one domain to other domain ( Iframe )](#dOM-manipulation)
 
 All above methods are wrapped in a promise. 
