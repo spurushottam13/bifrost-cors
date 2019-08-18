@@ -151,7 +151,7 @@ async function grabLocalStorage(){
         
     * Example:a
     if you can access element by 
-    document.getElementsByClassName("myElementClass)[4]<br/>
+    ```document.getElementsByClassName("myElementClass)[4]```<br/>
     so parameter will be <br/>
     	* class "myElementClass"
     	* index 4
