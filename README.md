@@ -1,4 +1,6 @@
-<img src="logo.jpg" width="100px" height="100px"  align="left"/>
+<p align="center">
+  <img src="logo.jpg" width="150px" height="150px"/>
+</p>
 
 # Bifrost-CROSS
 ###### A cross-domain communication solution to share data and many more  functionalities with simple as just calling a method.
@@ -6,10 +8,10 @@
  -------------
  
 - ###### [Get, Set Cookie](#cookies)
-- ###### Get, Set & Delete  Local Stroage 
-- ###### Bi-directional message thread
-- ###### Run JS expression from one domain to other
-- ###### DOM Manipulation from one domain to other domain ( Iframe )
+- ###### [Get, Set & Delete  Local Stroage](#localStorage) 
+- ###### [Bi-directional message thread](#bi-directional-message-thread)
+- ###### [Run JS expression from one domain to other](#run-jS-expression-from-one-domain-to-other)
+- ###### [DOM Manipulation from one domain to other domain ( Iframe )](#dOM-manipulation)
 
 All above methods are wrapped in a promise. 
 
