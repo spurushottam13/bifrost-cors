@@ -62,7 +62,7 @@ async function grabLocalStorage(){
     bifrostCors.getCookie() 
     
    // return type string
-   	bifrostCors.getCookie("key")
+   bifrostCors.getCookie("key")
     ```
     
     * __Set Cookies__
