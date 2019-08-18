@@ -18,11 +18,7 @@ All above methods are wrapped in a promise.
 ----
 ##### Initialize Bifrost-CORS
 ```javascript
-<<<<<<< HEAD
 var bifrostCors = new bifrostCors(address, iframeBoolean,iframeId)	
-=======
-var bifrostCors = new bifrostCors(address, iframeBoolean)	
->>>>>>> d5213ae312a7a99fb71986986a4df7ce0d02401a
 ```
 | Parameter        | Required           | Value  |
 | :------------- |:---------------------|:-----|
@@ -31,7 +27,6 @@ var bifrostCors = new bifrostCors(address, iframeBoolean)
 <<<<<<< HEAD
 | iframeId| No     |  if __iframeBoolean__ is set to __true__ then you need to pass the ID for your Iframe in which you loading the other domain |
 =======
->>>>>>> d5213ae312a7a99fb71986986a4df7ce0d02401a
 
 ---
 ##### Implementation of methods and how to handle promise
