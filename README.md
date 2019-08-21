@@ -1,5 +1,5 @@
 <center>
-<img src="logo.jpg" width="100px" height="100" align="center"/>
+<img src="logo.jpg" width="100px" height="100"/>
 </center>
 
 # Bifrost-CORS
