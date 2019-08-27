@@ -8,10 +8,10 @@
 #### Get Started
  ##### NPM Install
 > __npm install bifrost-cors__
-##### CDN Link
+##### CDN Link (6.39KB)
 >__https://cdn.jsdelivr.net/gh/spurushottam13/bifrost-cors/index.min.js__
 
-##### GZIP version of File
+##### GZIP version of File (1.7KB)
 >https://cdn.jsdelivr.net/gh/spurushottam13/bifrost-cors/index.min.gz
 
 #### Functionalities can be performed on CROS Domain
