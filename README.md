@@ -11,6 +11,9 @@
 ##### CDN Link
 >__https://cdn.jsdelivr.net/gh/spurushottam13/bifrost-cors/index.min.js__
 
+##### GZIP version of File
+>https://cdn.jsdelivr.net/gh/spurushottam13/bifrost-cors/index.min.gz
+
 #### Functionalities can be performed on CROS Domain
  -------------
  
