@@ -1,6 +1,6 @@
-<center>
-<img src="logo.jpg" width="100px" height="100"/>
-</center>
+<p align="center">
+<img align="center" src="logo.jpg" width="150px" height="150"/>
+</p>
 
 # Bifrost-CORS
 ###### A cross-domain communication solution to share data and many more  functionalities with simple as just calling a method.
