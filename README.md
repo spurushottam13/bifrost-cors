@@ -28,7 +28,7 @@ All above methods are wrapped in a promise.
 
 
 ----
-##### Initialize Bifrost-CORS
+##### Initialize Bifrost-CORS  *You have to Initialize Bifrost-CORS in both domain*
 ```javascript
 var bifrostCors = new bifrostCors(address, iframeBoolean,iframeId)	
 ```
