@@ -1,0 +1,20 @@
+{
+  "name": "bifrost-cors",
+  "version": "1.0.3",
+  "description": "A cross-domain utility lib, for sharing localStorage, cookie and many more over the cross domain",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spurushottam13/bifrost-cors.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "keywords": ["cors", "cross-domain utility", "cross storage", "get localstorage from other domain", "get cookie from other domain", "cross domain"],
+  "bugs": {
+    "url": "https://github.com/spurushottam13/bifrost-cors/issues"
+  },
+  "homepage": "https://github.com/spurushottam13/bifrost-cors#readme"
+}

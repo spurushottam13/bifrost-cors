@@ -60,7 +60,7 @@ async function grabLocalStorage(){
 ```
 ---
 #### Functionalities
-* #### Cookies
+* __Cookies__
 	* __Get Cookies__
 	```javascript
     // return type Object, return all cookies
@@ -81,7 +81,7 @@ async function grabLocalStorage(){
         
      * return type __Boolean__
      
-* #### LocalStorage	
+* __LocalStorage__	
 	* __Get local Storage__
 	```javascript
     // return type stirng
@@ -106,7 +106,7 @@ async function grabLocalStorage(){
     bifrostCors.deleteLocalStorage(["key1","key2"])
     ```
 
-* #### Bi-directional message thread
+* __Bi-directional message thread__
 	* __Request Message Thread__
 	```javascript
     // return type Boolean, parameter type funtion
@@ -130,12 +130,12 @@ async function grabLocalStorage(){
     bifrostCors.send(message)
      ```
      
-* #### Run JS expression
+* __Run JS expression__
 	```javascript
     // return type Boolean, parameter type string
     bifrostCors.runExpression(expression)
      ```
-* #### DOM Manipulation
+* __DOM Manipulation__
 	* __DOM Manipulation by ID__
 	```javascript
     // return type Boolean, parameter type string
