@@ -94,10 +94,7 @@ async function grabLocalStorage(){
     * __Set local Storage__
 	```javascript
     // return type Boolean
-    bifrostCors.setLocalStorage("key") 
-    
-    // return type Boolean
-    bifrostCors.setLocalStorage(["key1","key2"])
+    bifrostCors.setLocalStorage({key: "user", value: "user-1"}) 
     ```
     
     * __Delete local Storage__
